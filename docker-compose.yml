@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+    
+  jenkins:
+
+    container_name: jenkins
+
+    image: jenkins/jenkins:lts-jdk11
+
+    networks:
+      - jenkins
+
+    privileged: true
+
+    expose:
+      - 8080
+
+    ports:
+      - "8080:8080"
+
+    environment:
+      - DOCKER_TLS_CERTDIR=/certs
+
+    volumes:
+      - jenkins-docker-certs:/certs/client
+      - jenkins_home:/var/jenkins_home
+   
+networks:
+  jenkins:
+
+volumes:
+  jenkins-docker-certs:
+    external: true
+  jenkins_home:
+    external: true
